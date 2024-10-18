@@ -1,0 +1,74 @@
+---
+title: "Test"
+format: 
+   html:
+     df-print: paged
+editor: visual
+---
+
+## Quarto
+
+Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
+
+## Running Code
+
+When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
+
+```{r}
+1 + 1
+```
+
+*You can add options to executable code like this*
+
+| Default | Izquierda | Derecha | Centrado |
+|---------|:----------|--------:|:--------:|
+| 12      | 12        |      12 |    12    |
+| 123     | 123       |     123 |   123    |
+| 1       | 1         |       1 |    1     |
+
+: Valor por grupo {.striped .hover}
+
+: Ejemplo de tabla con markdown
+
+```{r}
+#| echo: false
+2 * 2
+```
+
+The `echo: false` option disables the printing of code (only output is displayed).
+
+```{r}
+#| include: false
+library(tidyverse)
+#| label: fig-dispersion
+#| fig-cap: "Millas recorridas con un galón de combustible según número de cilindros del auto."
+#| fig-alt: "Diagrama de densidad de la cantidad de millas recorridas por galón según el número de cilindros del auto. El gráfico parece mostrar que los autos de menor cantidad de cilindros recorren más millas."
+#| fig-width: 6
+#| fig-height: 5
+#| fig-align: left
+library(ggplot2)
+```
+
+```{r}
+#| echo: false
+3 + 1
+
+ggplot(mpg) +
+  aes(x = cty, fill = factor(cyl)) +
+  geom_density(alpha = 0.8) +
+  labs(title = "Gráfico de densidad", 
+       subtitle = "Millaje en ciudad según número de cilindros",
+       caption = "Fuente: datos mpg",
+       x = "Millas por galón", y = "Densidad",
+       fill = "Nro de cilindros") +
+  theme(legend.position = "bottom")
+
+prueba <- t.test(rnorm(30), alternative = "two.sided", mu = 0)
+pvalue <- prueba$p.value
+
+
+```
+
+Se realizó la prueba T-Student (pvalue = `r pvalue`).
+
+El promedio `r ifelse(pvalue <= 0.05, "", "no")` difiere.
